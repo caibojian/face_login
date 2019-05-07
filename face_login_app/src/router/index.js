@@ -35,18 +35,36 @@ Vue.use(Router)
 export const constantRoutes = [
   {
     path: '/login',
+    name:'login',
     component: () => import('@/pages/login/index'),
-    hidden: true
+    hidden: true,
+    meta: {
+      title: '人脸识别系统-登陆',
+      icon: 'lock',
+      roles: ['admin', 'editor'] // you can set roles in root nav
+    }
   },
   {
     path: '/home',
+    name:'home',
     component: () => import('@/pages/home/index'),
-    hidden: true
+    hidden: true,
+    meta: {
+      title: '人脸识别系统-首页',
+      icon: 'lock',
+      roles: ['admin', 'editor'] // you can set roles in root nav
+    }
   },
   {
     path: '',
+    name:'3',
     component: () => import('@/pages/home/index'),
-    hidden: true
+    hidden: true,
+    meta: {
+      title: '人脸识别系统-首页',
+      icon: 'lock',
+      roles: ['admin', 'editor'] // you can set roles in root nav
+    }
   }
 ]
 

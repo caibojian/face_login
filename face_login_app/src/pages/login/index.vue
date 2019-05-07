@@ -261,9 +261,9 @@ export default {
           imgData: this.imgDatas
         })
         .then(() => {
-          console.log("=================");
           console.log(this.$store.getters.token);
-          this.closeCamera();
+          this.showProgress = false;
+          that.closeCamera();
           if (this.$store.getters.token) {
             this.$router.push({ path: this.redirect || "/" });
           } else {
@@ -271,16 +271,15 @@ export default {
             that.dialogMsg = "验证失败，请重试！";
           }
           this.loading = false;
-          this.showProgress = false;
         })
         .catch(() => {
-          this.closeCamera();
+          that.closeCamera();
           this.loading = false;
           this.showProgress = false;
         });
     },
     closeDialog() {
-      this.showDilog = false;
+      that.showDilog = false;
     }
   }
 };

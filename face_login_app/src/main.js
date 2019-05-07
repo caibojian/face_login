@@ -7,7 +7,7 @@ import store from './store'
 import './permission' // permission control
 import Vconsole from 'vconsole'
 
-// let vConsole = new Vconsole()
+let vConsole = new Vconsole()
 
 
 Vue.config.productionTip = false
@@ -18,4 +18,4 @@ new Vue({
   render: h => h(App),
 }).$mount('#app')
 
-// export default vConsole
+export default vConsole
