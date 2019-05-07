@@ -143,15 +143,19 @@ export default {
     error: function(error) {
       this.loading = false;
       console.error(`访问用户媒体设备失败${error.name}, ${error.message}`);
+      this.showDilog = true;
+      this.dialogMsg = "访问用户媒体设备失败";
     },
     closeCamera: function() {
-      console.log(this.video_buffer.getTracks());
-      if(this.showProgress){
-        return
+      if (this.video_buffer) {
+        console.log(this.video_buffer.getTracks());
+        if (this.showProgress) {
+          return;
+        }
+        this.isRegister = false;
+        this.showVideo = false;
+        this.video_buffer && this.video_buffer.getTracks()[0].stop(); //关闭摄像头
       }
-      this.isRegister = false;
-      this.showVideo = false;
-      this.video_buffer && this.video_buffer.getTracks()[0].stop(); //关闭摄像头
     },
     registerView() {
       this.isRegister = true;
@@ -159,8 +163,8 @@ export default {
     },
     register() {
       var that = this;
-      if(this.showProgress){
-        return
+      if (this.showProgress) {
+        return;
       }
       if (!this.username) {
         that.showDilog = true;
@@ -188,7 +192,7 @@ export default {
         username: this.username
       })
         .then(res => {
-          if(!res.success){
+          if (!res.success) {
             that.showDilog = true;
             that.dialogMsg = res.msg;
           }
@@ -203,8 +207,12 @@ export default {
     },
     startFace() {
       var that = this;
+      console.log(navigator.mediaDevices);
+      console.log(navigator.getUserMedia);
+      console.log(navigator.webkitGetUserMedia);
+      console.log(navigator.mozGetUserMedia);
       if (
-        navigator.mediaDevices.getUserMedia ||
+        (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) ||
         navigator.getUserMedia ||
         navigator.webkitGetUserMedia ||
         navigator.mozGetUserMedia
@@ -221,6 +229,8 @@ export default {
       } else {
         this.loading = false;
         console.error("不支持访问用户媒体");
+        this.showDilog = true;
+        this.dialogMsg = "不支持访问用户媒体";
       }
       that.showVideo = true;
     },
@@ -238,8 +248,8 @@ export default {
     },
     login() {
       var that = this;
-      if(this.showProgress){
-        return
+      if (this.showProgress) {
+        return;
       }
       that.showProgress = true;
       that.imgDatas = [];
@@ -279,7 +289,7 @@ export default {
         });
     },
     closeDialog() {
-      that.showDilog = false;
+      this.showDilog = false;
     }
   }
 };
